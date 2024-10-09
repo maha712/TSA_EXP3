@@ -1,43 +1,46 @@
 # Ex.No: 03   COMPUTE THE AUTO FUNCTION(ACF)
 Date: 
 
-### AIM:
-To Compute the AutoCorrelation Function (ACF) of the data for the first 35 lags to determine the model
+ AIM:
+ 
+To Compute the AutoCorrelation Function (ACF) of the covid data for the first 35 lags to determine the model
 type to fit the data.
-### ALGORITHM:
+
+ ALGORITHM:
+ 
 1. Import the necessary packages
+   
 2. Find the mean, variance and then implement normalization for the data.
+ 
 3. Implement the correlation using necessary logic and obtain the results
+ 
 4. Store the results in an array
+ 
 5. Represent the result in graphical representation as given below.
-### PROGRAM:
+    
+ PROGRAM:
+```
+import pandas as pd
+from statsmodels.graphics.tsaplots import plot_acf
 import matplotlib.pyplot as plt
 
-import numpy as np
+# Load the dataset (adjust the file path as needed)
+file_path = '/mnt/data/Covid Data - Asia.csv'
+data = pd.read_csv(file_path)
 
-data = [3, 16, 156, 47, 246, 176, 233, 140, 130,
-101, 166, 201, 200, 116, 118, 247,
-209, 52, 153, 232, 128, 27, 192, 168, 208,
-187, 228, 86, 30, 151, 18, 254,
-76, 112, 67, 244, 179, 150, 89, 49, 83, 147, 90,
-33, 6, 158, 80, 35, 186, 127]
+# Extract the 'Total Cases' for all countries and convert it to a numeric type
+# Removing commas from the data for proper numeric conversion
+total_cases_all_countries = pd.to_numeric(data['Total Cases'].str.replace(',', ''), errors='coerce')
 
-lags = range(35)
-
-
-#Pre-allocate autocorrelation table
-
-#Mean
-
-#Variance
-
-#Normalized data
-
-#Go through lag components one-by-one
-
-#display the graph
-
+# Plot the ACF for the first 35 lags using the total cases of all countries
+plt.figure(figsize=(10, 6))
+plot_acf(total_cases_all_countries.dropna(), lags=35)
+plt.title('ACF for Total Cases of All Countries (First 35 Lags)')
+plt.show()
+```
 ### OUTPUT:
 
+![Screenshot (634)](https://github.com/user-attachments/assets/771cf4bc-651b-416f-9035-ee5a4722833b)
+
 ### RESULT:
-        Thus we have successfully implemented the auto correlation function in python.
+        Thus we have successfully implemented the auto correlation function in covid dataset.
